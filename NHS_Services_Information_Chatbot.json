@@ -1,0 +1,88 @@
+{
+  "name": "NHS Services Information Chatbot",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -304,
+        -64
+      ],
+      "id": "3b5eb16a-1b7d-43ad-99f0-72fc77eb5f53",
+      "name": "When chat message received"
+    },
+    {
+      "parameters": {
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are an NHS Services Information Assistant for a demonstration chatbot.\n\nYour task is to answer questions about NHS services in England.\n\nInstructions:\n\n* Provide clear, simple and helpful answers.\n* Use only reliable NHS information supplied to you.\n* Do not diagnose illnesses or prescribe medicines.\n* Do not claim to be an official NHS representative.\n* If the question is outside your available information, explain that you cannot confirm the answer.\n* For urgent medical concerns, direct the user to NHS 111 or the appropriate emergency service. For immediate life-threatening emergencies, advise calling 999.\n* Do not ask for NHS numbers, passwords, or sensitive medical information.\n* Include a relevant official NHS webpage when available.\n* State that this is a demonstration chatbot and not an official NHS service.\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        0,
+        -64
+      ],
+      "id": "925664bf-ead3-4dea-af9c-c2d27091d5fd",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        160
+      ],
+      "id": "f0aac4cb-6572-49c1-8efa-1609642a2f5b",
+      "name": "Google Gemini Chat Model"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "nodeGroups": [],
+  "tags": []
+}
